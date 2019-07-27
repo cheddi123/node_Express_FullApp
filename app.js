@@ -66,7 +66,7 @@ app.get("/",(req,res)=>[
 
 mongoose.set('useFindAndModify', false);
 
-mongoose.connect(process.env.DATABASE01, { useNewUrlParser: true}, err => {
+mongoose.connect(process.env.DATABASE01 || process.env.DATABASE, { useNewUrlParser: true}, err => {
 	if (err) throw err;
 	console.log('database connected');
 });
