@@ -10,3 +10,6 @@
 * Ejs
 * Passport.js Authentication
 * BCrypt Hashing
+
+## To use the app click the following 
+https://node-express-app-01.herokuapp.com/
