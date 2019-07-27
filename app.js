@@ -72,7 +72,7 @@ mongoose.connect(url, { useNewUrlParser: true }, err => {
 });
 
 app.listen(PORT, () => {
-	console.log(`Server is now running on port ${PORT}`);
+	console.log(`Server is now runningg on port ${PORT}`);
 });
 
-///////
+////////
