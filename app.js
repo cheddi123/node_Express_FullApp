@@ -60,7 +60,7 @@ app.use("/user",users)
 
 
 app.get("/",(req,res)=>[
-    res.render("homepage")
+    res.send("homepage")
 ])
 
 
