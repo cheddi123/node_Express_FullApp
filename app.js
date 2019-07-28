@@ -42,7 +42,8 @@ app.use(passport.session());
 app.use(function(req, res, next) {
 	res.locals.user = req.user || null;
 	res.locals.messages = require('express-messages')(req, res);
-	res.locals.errors = req.flash('errors');
+  res.locals.errors = req.flash('errors');
+  res.locals.moment = require('moment');
 
 	next();
 });
