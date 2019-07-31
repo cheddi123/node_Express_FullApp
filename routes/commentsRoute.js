@@ -75,6 +75,7 @@ router.delete('/:id/comment/:comment_id', ensureAuthenticated, (req, res) => {
 			} else {
 				Comment.findByIdAndDelete(req.params.comment_id, err => {
 					if (err) {
+						
 						req.flash('error', err.message);
 						return res.redirect('back');
 					} else {

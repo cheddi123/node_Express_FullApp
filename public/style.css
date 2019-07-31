@@ -12,5 +12,10 @@ li>span{
 }
 
 .commentBg{
-    background-color: rgb(136, 220, 235)
+    background-color: rgba(48, 168, 224,0.5);
+   
+}
+
+#header{
+    font-family: 'Permanent Marker', cursive;
 }
