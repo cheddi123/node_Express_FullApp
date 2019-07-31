@@ -19,3 +19,8 @@ li>span{
 #header{
     font-family: 'Permanent Marker', cursive;
 }
+
+
+.navbar-dark .navbar-nav .nav-link{
+   color:#fff 
+}
