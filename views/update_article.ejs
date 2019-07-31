@@ -3,7 +3,7 @@
 	<div>
 		<h1>Update an Article</h1>
 	</div>
-	<form action="/article/update/<%=article._id %>" method="POST">
+	<form action="/articles/update/<%=article._id %>" method="POST">
 		<div class="form-group">
 			<label for="title">Title</label>
 			<input
@@ -32,3 +32,6 @@
 		<button type="submit" class="btn btn-primary">Submit</button>
 	</form>
 </div>
+
+
+<% include partials/footer %>

@@ -4,3 +4,9 @@ body{
 .alert-error{
     background-color:#ce7c84
 }
+
+li>span{
+    font-size: 1.25em ;
+    font-weight: 700
+
+}

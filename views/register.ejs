@@ -19,7 +19,7 @@
 				class="form-control"
 				id="username"
 				name="username"
-				placeholder="Write a username"
+				placeholder="Username at least 5 alphanum char"
 				required
 				onkeyup="this.value = this.value.toLowerCase()"
 				
@@ -27,7 +27,7 @@
 		</div>
 		<div class="form-group">
 			<label for="password">Password</label>
-			<input type="password" class="form-control" id="password" name="password" placeholder="Write a password" />
+			<input type="password" class="form-control" id="password" name="password" placeholder="password at least 5 chars" />
 		</div>
 		<div class="form-group">
 			<label for="password2">Confirm</label>
@@ -42,3 +42,5 @@
 		<button type="submit" class="btn btn-primary">Submit</button>
 	</form>
 </div>
+
+<% include partials/footer %>

@@ -1,10 +1,13 @@
+
+
 require('dotenv').config();
 const express = require('express');
 const app = express();
 const mongoose = require('mongoose');
 const PORT = process.env.PORT || 4000;
-const articles = require('./routes/articleRoutes');
-const users = require('./routes/userRoutes');
+const articlesRoutes = require('./routes/articleRoutes');
+const usersRoutes = require('./routes/userRoutes');
+const commentRoutes = require("./routes/commentsRoute")
 const session = require('express-session');
 const expressValidator = require('express-validator');
 const flash = require('connect-flash');
@@ -52,8 +55,12 @@ app.use(function(req, res, next) {
 // app.use(expressValidator())
 
 //ROUTES MIDDLEWARE
-app.use('/article', articles);
-app.use('/user', users);
+app.use('/articles', articlesRoutes);
+app.use('/user', usersRoutes);
+app.use('/article', commentRoutes);
+
+
+
 
 app.get('/', (req, res) => {
 	Article.find({}, (err, articles) => {
@@ -67,6 +74,8 @@ app.get('/', (req, res) => {
 
 mongoose.set('useFindAndModify', false);
 const url = process.env.DATABASE01 || 'mongodb://localhost/Article_Db';
+
+// const url ='mongodb://localhost/Article_Db';
 mongoose.connect(url, { useNewUrlParser: true }, err => {
 	if (err) throw err;
 	console.log('database connected');

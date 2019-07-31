@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const Article = require('../models/ArticleModel');
 const User = require('../models/UserModel');
+const Comment = require('../models/CommentModel');
 // const expressValidator = require('../validators/expressValidator');
 const { check, validationResult } = require('express-validator');
 
@@ -11,31 +12,46 @@ router.get('/', (req, res) => {
 		if (err) {
 			return console.log(err);
 		} else {
-			
 			res.render('homepage', { articles });
 		}
 	});
 });
 
+
+
 // GET INFO on AN Article
 router.get('/info/:id', (req, res) => {
-	Article.findById(req.params.id, (err, article) => {
-		User.findById(article.author, (err, user) => {
-            // res.send(article)
-            
-			console.log("author id : "+ article.author)
-			console.log("The author is " + user.name)
-			res.render('article_info', { article, author: user.name });
+	
+	Article.findById(req.params.id)
+		.populate('comments')
+		.exec((err, article) => {
+			if (err) {
+				return console.log(err);
+			} else {
+				User.findById(article.author, (err, usercomment) => {
+					if (err) {
+						return console.log(err);
+					} else {
+						console.log(usercomment);
+						console.log('author id : ' + article.author);
+						// console.log('The author is ' + user.name);
+						res.render('article_info', { article, usercomment });
+					}
+				});
+			}
 		});
-	});
 });
 
 //ADD AN ARTICLE
 
 // GET an article form
-router.get('/add', ensureAuthenticated, (req, res) => {
+router.get('/add',ensureAuthenticated, (req, res) => {
 	res.render('add_article');
+	
 });
+// router.get("/add",(req,res)=>{
+// 	res.send("yes")
+// })
 
 // POST an Article
 router.post(
@@ -63,12 +79,12 @@ router.post(
 			article.author = req.user._id;
 			article.description = req.body.description;
 
-			article.save((err) => {
+			article.save(err => {
 				if (err) {
 					return console.log(err);
 				} else {
 					req.flash('success', 'Article added');
-					res.redirect('/article');
+					res.redirect('/articles');
 				}
 			});
 		}
@@ -78,12 +94,11 @@ router.post(
 // UPDATE AN ARTICLE
 
 //GET article by ID to update
-router.get('/update/:id',ensureAuthenticated, (req, res) => {
+router.get('/update/:id', ensureAuthenticated, (req, res) => {
 	Article.findById(req.params.id, (err, article) => {
-		if (article.author!=req.user._id) {
-			req.flash("danger"," not authorized")
-			res.redirect("/article")
-
+		if (article.author != req.user._id) {
+			req.flash('danger', ' not authorized');
+			res.redirect('/articles');
 		} else {
 			// res.send(article)
 			res.render('update_article', { article });
@@ -91,18 +106,18 @@ router.get('/update/:id',ensureAuthenticated, (req, res) => {
 	});
 });
 //POST updated article
-router.post('/update/:id',ensureAuthenticated, (req, res) => {
+router.post('/update/:id', ensureAuthenticated, (req, res) => {
 	Article.findByIdAndUpdate(req.params.id, req.body, (err, article) => {
 		if (err) {
 			return console.log(err);
 		} else {
-			res.redirect('/article/info/' + req.params.id);
+			res.redirect('/articles/info/' + req.params.id);
 		}
 	});
 });
 
 // Delete an Article
-router.delete('/delete/:id',ensureAuthenticated, (req, res) => {
+router.delete('/delete/:id', ensureAuthenticated, (req, res) => {
 	if (!req.user._id) {
 		res.status(500).send();
 	}
@@ -133,4 +148,5 @@ function ensureAuthenticated(req, res, next) {
 
 module.exports = router;
 //
-//////
+///////
+//

@@ -1,24 +1,67 @@
 <% include partials/header %>
 <div class="container">
-	<h1 class="text-primary"> ONE Article info</h1>
+	<h1 class="text-primary">Article information</h1>
 
 	<ul class="list-group  my-2">
-		<li id="title" class="list-group-item active"><%= article.title %></li>
+		<li id="title" class="list-group-item active">
+			<span>Title : </span> <%= article.title %>
+			<cite class=" blockquote-footer text-white">posted on <%= article.date %></cite>
+		</li>
 
-		<li class="list-group-item"><%= author %>  </li>
-        <li class="list-group-item"><%= article.description %></li>
-      
-            <% if(user && article.author===user.id){ %>
-            <div class="card">
+		<li class="list-group-item"><span>Author : <%= usercomment.name %> </span></li>
+		<li class="list-group-item"><span>Description : </span> <%= article.description %></li>
+		<div class="card">
 			<div class="card-body ml-auto">
-                    <a href="/article" class="btn btn-success  ">Home</a>
-				<a href="/article/update/<%=article._id%>" class="btn btn-info  ">Update </a>
+				<a href="/articles" class="btn btn-success  ">Home</a>
+				<% if(user && article.author===user.id){ %>
+				<a href="/articles/update/<%=article._id%>" class="btn btn-info  ">Update </a>
 				<a href="#" class="btn btn-danger article_delete" data-id="<%=article._id%>">Delete </a>
+				<% }%>
 			</div>
 		</div>
-      <%  }%>
-       
-       
-		
 	</ul>
+
+	<div class="card-text mb-2   ">
+		<div class="d-flex">
+		
+			<a class="btn btn-outline-primary btn-block " href="/article/<%=article._id%>/comment/new"> Comment on Article</a>
+		</div>
+	</div>
+
+	<% article.comments.forEach((comment)=>{ %>
+	<div class="card-footer bg-light  ">
+		<div class="row">
+			<div class="col-md-12 ">
+				<div class="d-flex mb-2">
+					<div class="ml-auto ">
+						<span class="my-0"><strong><%=comment.username %></strong></span>
+						<span class="font-italic"><%= moment(comment.createdAt).fromNow() %></span>
+					</div>
+				</div>
+
+				<p><%=comment.comment %></p>
+				<div class="d-flex">
+					<div class="ml-auto">
+						<% if(user && comment.id.equals(user.id)){ %>
+						<a href="/article/<%=article._id%>/comment/<%=comment._id%>/update" class="btn btn-info  "
+							>Update
+						</a>
+						<a
+							href="#"
+							class="btn btn-danger article_comment"
+							data-id="<%=comment._id%>"
+							data-artId="<%=article._id%>"
+							>Delete
+						</a>
+						<% }%>
+					</div>
+				</div>
+
+				<hr />
+			</div>
+		</div>
+	</div>
+	<% }) %>
 </div>
+
+<% include partials/footer %>

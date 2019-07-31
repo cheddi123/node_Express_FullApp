@@ -1,9 +1,8 @@
 const express = require('express');
 const router = express.Router();
 const bcrypt = require('bcryptjs');
-const { check, validationResult } = require('express-validator');
-const passport = require("passport")
-
+const { check, validationResult, body } = require('express-validator');
+const passport = require('passport');
 
 //Bring in User Model
 const User = require('../models/UserModel');
@@ -12,24 +11,29 @@ const User = require('../models/UserModel');
 router.get('/register', (req, res) => {
 	res.render('register');
 });
+
 // POST register form
 router.post(
 	'/register',
 	[
-		check('name', 'Name is required')
+		check('name' )
 			.not()
-			.isEmpty(),
+			.isEmpty().withMessage('Name is required')
+			.matches(/^[a-zA-Z]+$/).withMessage("Name must ONLY BE  Alpha chars"),
 		check('email', 'Email is required')
 			.not()
 			.isEmpty(),
 		check('email', 'Email is not Valid').isEmail(),
 
-		check('username', 'UserName is required')
+		check('username' )
 			.not()
-			.isEmpty(),
+			.isEmpty().withMessage('UserName is required')
+			.matches("^[a-zA-Z0-9_]*$").withMessage("UserName must ONLY be AlphaNumeric"),
+		
 		check('password', 'Password is required')
 			.not()
 			.isEmpty(),
+			check("password").isLength({min:5}).withMessage("Password must be at least 5 chars long"),
 		check('password2', 'Passwords do not match').custom((value, { req }) => value === req.body.password),
 	],
 
@@ -44,9 +48,9 @@ router.post(
 		const errors = validationResult(req);
 		if (!errors.isEmpty()) {
 			// const firsterror = errors.array()
-			console.log( req.body)
+			console.log(req.body);
 			req.flash('errors', errors.array());
-			return res.render('register', { errors: req.flash('errors'),newuser:req.body });
+			return res.render('register', { errors: req.flash('errors'), newuser: req.body });
 		} else {
 			const newUser = new User({
 				name,
@@ -64,8 +68,9 @@ router.post(
 					newUser.password = hash;
 					newUser.save(err => {
 						if (err) {
-							req.flash("danger",err.message)
-							res.render("register")
+							
+							req.flash('danger', err.message);
+							res.render('register');
 							return;
 						} else {
 							req.flash('success', 'You are now registered');
@@ -79,26 +84,28 @@ router.post(
 );
 
 // GET LOGIN form
-router.get("/login",(req,res)=>{
-    res.render("login")
-})
+router.get('/login', (req, res) => {
+	res.render('login');
+});
 
 //Login Check
-router.post("/login",
-    passport.authenticate('local', { successRedirect: '/article',
-    failureRedirect: '/user/login',
-    failureFlash: true,
-    successFlash:"Welcome to Author PAge"
- })
-    
-)
+router.post(
+	'/login',
+	passport.authenticate('local', {
+		successRedirect: '/articles',
+		failureRedirect: '/user/login',
+		failureFlash: true,
+		successFlash: 'Welcome to Author PAge',
+	})
+);
 
 // logout
-router.get('/logout', function(req, res){
+router.get('/logout', function(req, res) {
 	req.logout();
 	req.flash('success', 'You are logged out');
 	res.redirect('/user/login');
-  });
+});
 
 module.exports = router;
-////
+/////
+
