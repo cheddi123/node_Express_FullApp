@@ -95,7 +95,7 @@ router.post(
 		successRedirect: '/articles',
 		failureRedirect: '/user/login',
 		failureFlash: true,
-		successFlash: 'Welcome to Author PAge',
+		successFlash: 'Welcome to Articles of ALl kind',
 	})
 );
 

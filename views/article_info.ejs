@@ -4,7 +4,7 @@
 
 	<ul class="list-group  my-2">
 		<li id="title" class="list-group-item active">
-			<span>Title : </span> <%= article.title %>
+			<span>Title : </span> <span><%= article.title %></span>
 			<cite class=" blockquote-footer text-white">posted on <%= article.date %></cite>
 		</li>
 
@@ -24,7 +24,7 @@
 	<div class="card-text mb-2   ">
 		<div class="d-flex">
 		
-			<a class="btn btn-outline-primary btn-block " href="/article/<%=article._id%>/comment/new"> Comment on Article</a>
+			<a class="btn btn-outline-primary btn-block " href="/article/<%=article._id%>/comment/new"> Add Comments on Article</a>
 		</div>
 	</div>
 
