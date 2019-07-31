@@ -29,18 +29,18 @@
 	</div>
 
 	<% article.comments.forEach((comment)=>{ %>
-	<div class="card-footer bg-light  ">
+	<div class="card-footer bg-light my-2  ">
 		<div class="row">
 			<div class="col-md-12 ">
 				<div class="d-flex mb-2">
-					<div class="ml-auto ">
+					<div class="ml-auto  ">
 						<span class="my-0"><strong><%=comment.username %></strong></span>
 						<span class="font-italic"><%= moment(comment.createdAt).fromNow() %></span>
 					</div>
 				</div>
 
 				<p><%=comment.comment %></p>
-				<div class="d-flex">
+				<div class="d-flex ">
 					<div class="ml-auto">
 						<% if(user && comment.id.equals(user.id)){ %>
 						<a href="/article/<%=article._id%>/comment/<%=comment._id%>/update" class="btn btn-info  "
