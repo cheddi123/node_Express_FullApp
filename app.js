@@ -26,7 +26,7 @@ app.set('view engine', 'ejs');
 //EXPRESS SESSION MIDDLEWARE  be sure to use session() before passport.session() to ensure that the login session is restored in the correct order.
 app.use(
 	session({
-		secret: 'keyboard cat',
+		secret: process.env.SECRET,
 		resave: true,
 		saveUninitialized: true,
 	})
