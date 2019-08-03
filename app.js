@@ -72,7 +72,7 @@ app.get('/', (req, res) => {
 	});
 });
 
-mongoose.set('useFindAndModify', false);
+mongoose.set('useCreateIndex', true);
 const url = process.env.DATABASE01 || 'mongodb://localhost/Article_Db';
 
 // const url ='mongodb://localhost/Article_Db';

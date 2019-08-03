@@ -8,20 +8,20 @@ const { check, validationResult } = require('express-validator');
 
 // GET HOMEPAGE articles
 router.get('/', (req, res) => {
-	Article.find({}, (err, articles) => {
-		if (err) {
-			return console.log(err);
-		} else {
-			res.render('homepage', { articles });
-		}
-	});
+	Article.find()
+		.sort({ date: -1 })
+		.exec((err, articles) => {
+			if (err) {
+				return console.log(err);
+			} else {
+				console.log('the order id is ' + articles);
+				res.render('homepage', { articles });
+			}
+		});
 });
-
-
 
 // GET INFO on AN Article
 router.get('/info/:id', (req, res) => {
-	
 	Article.findById(req.params.id)
 		.populate('comments')
 		.exec((err, article) => {
@@ -45,9 +45,8 @@ router.get('/info/:id', (req, res) => {
 //ADD AN ARTICLE
 
 // GET an article form
-router.get('/add',ensureAuthenticated, (req, res) => {
+router.get('/add', ensureAuthenticated, (req, res) => {
 	res.render('add_article');
-	
 });
 // router.get("/add",(req,res)=>{
 // 	res.send("yes")
