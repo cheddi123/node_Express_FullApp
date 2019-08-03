@@ -9,7 +9,7 @@
 		</li>
 
 		<li class="list-group-item"><span>Author : <%= usercomment.name %> </span></li>
-		<li class="list-group-item"><span>Description : </span> <%= article.description %></li>
+		<li class="list-group-item"  ><span>Description : </span>  <%- article.description %></li>
 		<div class="card">
 			<div class="card-body ml-auto">
 				<a href="/articles" class="btn btn-success  ">Home</a>
@@ -64,4 +64,13 @@
 	<% }) %>
 </div>
 
+<!--CS Editor Script-->
+<script src="https://cdn.ckeditor.com/4.12.1/standard/ckeditor.js">
+        
+</script>
+<script >
+ CKEDITOR.replace('description',{
+	 plugins:"wysiwygarea,toolbar,basicstyles,link"
+ });
+</script>
 <% include partials/footer %>

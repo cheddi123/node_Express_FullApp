@@ -32,6 +32,15 @@
 		<button type="submit" class="btn btn-primary">Submit</button>
 	</form>
 </div>
+<!--CS Editor Script-->
+<script src="https://cdn.ckeditor.com/4.12.1/standard/ckeditor.js">
+        
+</script>
+<script >
+ CKEDITOR.replace('description',{
+	 plugins:"wysiwygarea,toolbar,basicstyles,link"
+ });
+</script>
 
 
 <% include partials/footer %>
