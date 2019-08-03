@@ -6,12 +6,13 @@
 
 	<% articles.forEach(article=>{%>
 	<ul class="list-group my-2">
-		<li class="list-group-item  "> <span class="mr-3"><%= article.title %> </span><a href="/articles/info/<%=article._id%>">More Info >></a> 
+		<li class="list-group-item  "> <span class="mr-3"><%= article.title %> </span><a href="/articles/info/<%=article._id%>">Read <i class="fas fa-book-reader"></i></a> 
 		<cite class="float-right text-muted ">posted on <%= moment(article.date).format("ll")%> </cite>
 		</li>
 		
 	</ul>
 	<% }) %>
 </div>
+
 
 <% include partials/footer %>
