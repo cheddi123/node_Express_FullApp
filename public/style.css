@@ -24,3 +24,7 @@ li>span{
 .navbar-dark .navbar-nav .nav-link{
    color:#fff 
 }
+
+div.form-group{
+    margin: 0 0
+}
