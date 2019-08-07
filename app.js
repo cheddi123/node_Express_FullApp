@@ -63,13 +63,16 @@ app.use('/article', commentRoutes);
 
 
 app.get('/', (req, res) => {
-	Article.find({}, (err, articles) => {
-		if (err) {
-			return console.log(err);
-		} else {
-			res.render('homepage', { articles });
-		}
-	});
+	Article.find()
+		.sort({ date: -1 })
+		.exec((err, articles) => {
+			if (err) {
+				return console.log(err);
+			} else {
+				console.log('the order id is ' + articles);
+				res.render('homepage', { articles });
+			}
+		});
 });
 
 mongoose.set('useCreateIndex', true);

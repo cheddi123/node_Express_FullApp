@@ -1,5 +1,5 @@
 body{
-    background-color: rgb(224, 228, 224)
+    background-color: rgba(219, 221, 203, 0.3)
 }
 .alert-error{
     background-color:#ce7c84
@@ -30,3 +30,7 @@ div.form-group{
 }
 
 #article {font-family: 'Abril Fatface', cursive;}
+
+a:hover{
+    color: rgb(219, 19, 29)
+}

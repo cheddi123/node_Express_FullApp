@@ -14,7 +14,7 @@ router.get('/', (req, res) => {
 			if (err) {
 				return console.log(err);
 			} else {
-				console.log('the order id is ' + articles);
+				// console.log('the order id is ' + articles);
 				res.render('homepage', { articles });
 			}
 		});
@@ -32,8 +32,8 @@ router.get('/info/:id', (req, res) => {
 					if (err) {
 						return console.log(err);
 					} else {
-						console.log(usercomment);
-						console.log('author id : ' + article.author);
+						// console.log(usercomment);
+						// console.log('author id : ' + article.author);
 						// console.log('The author is ' + user.name);
 						res.render('article_info', { article, usercomment });
 					}
@@ -135,6 +135,18 @@ router.delete('/delete/:id', ensureAuthenticated, (req, res) => {
 	});
 });
 
+//VIEW ALL Articles by one Author
+router.get("/author/:id", ensureAuthenticated,(req,res)=>{
+	Article.find({author:req.params.id})
+	.sort({ date: -1 })
+	.then(articles=>{
+		res.render("authorArticles",{articles})
+	})
+	.catch(err=>{
+		console.log(err)
+	})
+})
+
 // Access Control
 function ensureAuthenticated(req, res, next) {
 	if (req.isAuthenticated()) {
@@ -146,6 +158,3 @@ function ensureAuthenticated(req, res, next) {
 }
 
 module.exports = router;
-//
-///////
-//

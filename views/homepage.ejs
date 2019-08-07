@@ -1,18 +1,24 @@
 <% include partials/header %>
 <div class="container">
-    <h3 class="text-primary text-center" style="font-family: 'Permanent Marker', cursive;">Welcome to Articles of ALL Kind</h3>
+	<h3 class="text-primary text-center" style="font-family: 'Permanent Marker', cursive;">
+		Welcome to Articles of ALL Kind
+	</h3>
 	<a href="/articles/add" class="btn btn-info">ADD A NEW Article</a>
-	
 
 	<% articles.forEach(article=>{%>
-	<ul class="list-group my-2">
-		<li class="list-group-item  "> <span class="mr-3"><%= article.title %> </span><a href="/articles/info/<%=article._id%>">Read <i class="fas fa-book-reader"></i></a> 
-		<cite class="float-right text-muted ">posted on <%= moment(article.date).format("ll")%> </cite>
+	<div class="row bg-light ">
+		<div class="col-8  border border-primary  "><span class="mr-3"> <h3><%= article.title %></h3> </span
+			><a href="/articles/info/<%=article._id%>" class="visited">Read <i class="fas fa-book-reader"></i></a></div>
+		<div class="col-4 border border-primary ">	<cite class="float-right text-muted  ">posted on <%= moment(article.date).format("ll")%> </cite></div>
+	</div>
+	<!-- <ul class="list-group my-2">
+		<li class="list-group-item  ">
+			<span class="mr-3"><%= article.title %> </span
+			><a href="/articles/info/<%=article._id%>">Read <i class="fas fa-book-reader"></i></a>
+			<cite class="float-right text-muted ">posted on <%= moment(article.date).format("ll")%> </cite>
 		</li>
-		
-	</ul>
+	</ul> -->
 	<% }) %>
 </div>
-
 
 <% include partials/footer %>
